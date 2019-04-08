@@ -1783,12 +1783,16 @@ kpress(XEvent *ev)
 		return;
 
 	len = XmbLookupString(xw.xic, e, buf, sizeof buf, &ksym, &status);
+        printf("%d %d\n", ksym, e->state);
+        
 	/* 1. shortcuts */
 	for (bp = shortcuts; bp < shortcuts + LEN(shortcuts); bp++) {
 		if (ksym == bp->keysym && match(bp->mod, e->state)) {
+                        puts("yep");
 			bp->func(&(bp->arg));
 			return;
 		}
+                
 	}
 
 	/* 2. custom keys from config.h */
